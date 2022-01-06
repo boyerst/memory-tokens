@@ -9,6 +9,7 @@ module.exports = {
       network_id: "*" // Match any network id
     },
   },
+  // Contracts setup differently than normal - they're put in different directories so that they can be exposed to React.js for the tutorials
   contracts_directory: './src/contracts/',
   contracts_build_directory: './src/abis/',
   compilers: {

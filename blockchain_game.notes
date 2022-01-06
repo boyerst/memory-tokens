@@ -1,10 +1,26 @@
 ===BLOCKCHAIN GAME NOTES===
 ---------------------------
 
+#NOTES
+------
+- Scope of the project is how to build a game and use tokens, not to build from scratch
+
+- use...
+
+     git push starter-code master
+
+     ...to push to remote 
 
 
-
-
+#DEVELOPMENT STEPS
+------------------
+- Declared name of contract as a string and state var
+- Added contract to 2_deploy_contract.js
+- Open truffle Quick Start
+- Migrate your contract to the local ethereum blockchain
+    truffle migrate --reset
+- Open truffle console to interact with contract with JS
+    truffle console
 
 
 
@@ -18,7 +34,8 @@
 
 #DIRECTIONS
 
-
+- Cloning 
+  . git clone -b starter-code https://github.com/dappuniversity/blockchain_game.git blockchain_game
 
 
 #SERVER START
