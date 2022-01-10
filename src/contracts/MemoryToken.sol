@@ -56,7 +56,7 @@ contract MemoryToken is ERC721Full {
     _setTokenURI(_tokenId, _tokenURI);
 
     // Return true because the function returns a bool
-    return true
+    return true;
   }
 
 }
