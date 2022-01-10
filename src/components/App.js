@@ -4,8 +4,38 @@ import './App.css';
 import MemoryToken from '../abis/MemoryToken.json'
 import brain from '../brain.png'
 
+
+// This is a React.js component  
 class App extends Component {
 
+
+    async componentWillMount() {
+      await this.loadWeb3()
+      await this.loadBlockchainData()
+    }
+
+
+    async loadWeb3() {
+    if (window.ethereum) {
+      window.web3 = new Web3(window.ethereum)
+      await window.ethereum.enable()
+    }
+    else if (window.web3) {
+      window.web3 = new Web3(window.web3.currentProvider)
+    }
+    else {
+      window.alert('Non-Ethereum browser detected. You should consider trying MetaMask!')
+    }
+  }
+
+  // We use this to perform a task to ensure web3 is connected to our app
+  async loadBlockchainData() {
+    // Stash the web3 value
+    const web3 = window.web3
+    // Fetch the account we are connected to with MetaMask and log it onto the page
+    const accounts = await web3.eth.getAccounts()
+    console.log("account", accounts[0])
+  }
 
   constructor(props) {
     super(props)

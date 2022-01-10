@@ -21,6 +21,20 @@
     truffle migrate --reset
 - Open truffle console to interact with contract with JS
     truffle console
+- Start developing code and testing code at the same time
+  . We wrote the constructor with the variable value names ("Memory Token", "MEMORY")
+  . We wrote our deployment test - describe('deployment')
+    + Then we tested wether it was on the blockchain
+  . We wrote our token mint test - describe('token distribution') 
+    + We used our own mint() function that overrode the ERC721Full.sol mint() function
+      - So that we could have custom test?
+. Connect Browser to Blockchain Using Web3 Provider (MetaMask)
+  . Made sure our client was running
+  . Made sure truffle blockchain was running
+  . Send new copy to local blockchain via migrate --reset
+  . Ensured MetaMask was connected (browser connected to blockchain)
+. Connect Dapp to Blockchain Using Web3.js
+  
 
 
 
@@ -40,6 +54,7 @@
 
 #SERVER START
 
+  npm run start
 
 
 
@@ -74,20 +89,42 @@
 #FRONTEND
 
 
-- SEE above
+*Languages*
+
+*Frameworks*
+
+  *Testing Frameworks*
+
+  *Theming Frameworks*
+   - Bootstrap
+
+*Libraries*
+ - React
+
+*Template Engines*
 
 
 #BACKEND
 
+*Languages*
 
-- SEE above
+*Frameworks*
+
+  *Testing Frameworks*
+  - Truffle
+  - Ganache
+
+*Libraries*
+ - web3.js
+
+*Template Engines*
 
 
 #BLOCKCHAIN
 
 
 *webThree Provider*
-
+ - MetaMask
 
 *Node API Provider*
 
@@ -95,7 +132,6 @@
 *Testnets*
 
 
-*Wallet Used*
 
 
 #OTHER
