@@ -8,14 +8,16 @@ import brain from '../brain.png'
 // This is a React.js component  
 class App extends Component {
 
+  // Use React lifecycle method to call our loadWeb3 function
+  async componentWillMount() {
+    // Load our web3
+    await this.loadWeb3()
+    // Call our function that shows us we are connected to web3
+    await this.loadBlockchainData()
+  }
 
-    async componentWillMount() {
-      await this.loadWeb3()
-      await this.loadBlockchainData()
-    }
 
-
-    async loadWeb3() {
+  async loadWeb3() {
     if (window.ethereum) {
       window.web3 = new Web3(window.ethereum)
       await window.ethereum.enable()
@@ -28,14 +30,19 @@ class App extends Component {
     }
   }
 
+
   // We use this to perform a task to ensure web3 is connected to our app
   async loadBlockchainData() {
     // Stash the web3 value
     const web3 = window.web3
     // Fetch the account we are connected to with MetaMask and log it onto the page
     const accounts = await web3.eth.getAccounts()
-    console.log("account", accounts[0])
+    // Print the Truffle account that we co nnected to our MetaMask
+    // console.log("account", accounts[0])
+    this.setState({ account: accounts[0] })
+
   }
+
 
   constructor(props) {
     super(props)
@@ -43,6 +50,7 @@ class App extends Component {
       account: '0x0'
     }
   }
+
 
   render() {
     return (
