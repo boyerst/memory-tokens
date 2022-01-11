@@ -28,14 +28,24 @@
   . We wrote our token mint test - describe('token distribution') 
     + We used our own mint() function that overrode the ERC721Full.sol mint() function
       - So that we could have custom test?
-. Connect Browser to Blockchain Using Web3 Provider (MetaMask)
+- Connect Browser to Blockchain Using Web3 Provider (MetaMask)
   . Made sure our client was running
   . Made sure truffle blockchain was running
   . Send new copy to local blockchain via migrate --reset
   . Ensured MetaMask was connected (browser connected to blockchain)
-. Connect Dapp to Blockchain Using Web3.js
-  
-
+- Connect Dapp to Blockchain Using Web3.js 
+  . loadWeb3() function with window.ethereum
+  . Call loadWeb3() in your app.js
+  . Display connected address in UI
+- Connect the smart contract to the Dapp
+  . Import artifact
+  . loadBlockchainData() function
+    + We created a JS version of our contract with (1) ABI (2) address
+    + Fetch the abi
+    + Find the address on that network
+    + Create the JS version of your contract
+    + Add it to the State object
+    + setState()
 
 
 

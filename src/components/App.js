@@ -37,17 +37,40 @@ class App extends Component {
     const web3 = window.web3
     // Fetch the account we are connected to with MetaMask and log it onto the page
     const accounts = await web3.eth.getAccounts()
-    // Print the Truffle account that we co nnected to our MetaMask
-    // console.log("account", accounts[0])
+    // Print the Truffle account that we connected to our MetaMask
+    console.log("account", accounts[0])
     this.setState({ account: accounts[0] })
 
+    // Load the smart contract network
+    // Fetch the network ID
+    const networkId = await web3.eth.net.getId()
+    console.log(networkId)
+    // Fetch other network data
+    const networkData = MemoryToken.networks[networkId]
+    console.log(networkData)
+    // Fetch only IF it's deployed to the blockchain
+      // IF we can fetch the networkId and define networkData then fetch the address, etc.
+    if(networkData) {
+      // Fetch the ABI from the contract artifact
+      const abi = MemoryToken.abi
+      // Fetch the address from the contract artifact
+      const address = networkData.address
+      // Create the JS version of the smart 
+      const token = new web3.eth.Contract(abi, address)
+      // Set state after adding new JS verion of your contract to State object
+      this.setState({ token })
+    } else {
+      // IF we cannot fetch the networkId and define networkData
+      alert('Smart contract not deployed to the network')
+    }
   }
 
 
   constructor(props) {
     super(props)
     this.state = {
-      account: '0x0'
+      account: '0x0',
+      token: {},
     }
   }
 
