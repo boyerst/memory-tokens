@@ -37,15 +37,16 @@
   . loadWeb3() function with window.ethereum
   . Call loadWeb3() in your app.js
   . Display connected address in UI
-- Connect the smart contract to the Dapp
+- Connect (Fetch) the smart contract to the Dapp
   . Import artifact
   . loadBlockchainData() function
     + We created a JS version of our contract with (1) ABI (2) address
     + Fetch the abi
     + Find the address on that network
     + Create the JS version of your contract
-    + Add it to the State object
     + setState()
+    + Add it to the State object
+    ↑ This concludes the fetching of the smart contract
 
 
 

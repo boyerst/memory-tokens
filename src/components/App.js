@@ -18,6 +18,7 @@ class App extends Component {
 
 
   async loadWeb3() {
+    // Create a web3 instance and set a provider
     if (window.ethereum) {
       window.web3 = new Web3(window.ethereum)
       await window.ethereum.enable()
@@ -59,6 +60,14 @@ class App extends Component {
       const token = new web3.eth.Contract(abi, address)
       // Set state after adding new JS verion of your contract to State object
       this.setState({ token })
+      // Fetch the total supply from the artifact
+        // With web3 we cannot just call the function <- You MUST ADD '.call'
+        // If you don't it will just run the function, but not return the function
+      const totalSupply = await token.methods.totalSupply().call()
+      // Set Total Supply to State
+      this.setState({ totalSupply })
+
+
     } else {
       // IF we cannot fetch the networkId and define networkData
       alert('Smart contract not deployed to the network')
@@ -70,7 +79,10 @@ class App extends Component {
     super(props)
     this.state = {
       account: '0x0',
-      token: {},
+      // Refactored from 'token: {}' with empty object because better?
+      token: null,
+      // Since this is a uint we have to set a default value
+      totalSupply: 0,
     }
   }
 
