@@ -47,6 +47,10 @@
     + setState()
     + Add it to the State object
     ↑ This concludes the fetching of the smart contract
+    + Fetch totalSuppl
+- Load all of the users tokens
+  . Same thing we did in the tests with the For Loop
+    + EXCEPT we use call methods and do not push into an array - they are set in the State of app
 
 
 

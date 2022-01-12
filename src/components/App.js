@@ -67,7 +67,31 @@ class App extends Component {
       // Set Total Supply to State
       this.setState({ totalSupply })
 
-
+      // Load all of the users' tokens
+        // Similar to balanceOf() test functions EXCEPT we use call methods and do not push to an array
+          // We set them in state
+      // REMINDER: that we are fetching all of this data from the contract artifact, which is a JSON representation of your contract that is compiled by Solidity everytime your contract is compiled
+        // This specific function originally comes from ERC721.sol (the NFT contract) that we inherit through our MemoryToken.sol contract
+      let balanceOlf = await token.methods.balanceOf(accounts[0]).call()
+      // Loop through ALL of the tokens (From 0 -> however many total they have) that the owner has in their balance of tokens
+        // i starts as 0; so long as i is less that the balance of the owners address, continue the loop; then add one more integer to i after you execute the code; restart the loop
+      for (let i = 0; i < balanceOf; i++) {
+        // Declare each token as an id for each iteration through the loop
+          // Pass two arguments to tokenOfOwnerByIndex()
+            // 1. the owners account address
+            // 2. the index number of the token which is assigned during the For Loop
+          // Since we are working with web3 we must add the .call() to run AND RETURN the function call
+        let id = await token.methods.tokenOfOwnerByIndex(accounts[0], i).call()
+        // Declare the tokenURI for each the tokens we grab from the users balance
+          // We do this by calling the tokenURI() function in ERC721.sol contract - which simply takes the id that we declared and defined above and returns the tokenURI for the given Id
+            // Q: at what point in the tokens creation is setTokenURI() called ❓
+        let tokenURI = await token.methods.tokenURI(id).call()
+        // Next, we push the tokenURI (which we fetched by calling tokenURI() with the id, which we fetched by calling tokenOfOWnerByIndex() with the account address and the index #) to our array in state
+        this.setState({
+          // The tokenURIs is all the URLS of the token (contains metadata, etc.)
+          tokenURIs: [...this.state.tokenURIs, tokenURI]
+        })
+      }
     } else {
       // IF we cannot fetch the networkId and define networkData
       alert('Smart contract not deployed to the network')
@@ -83,6 +107,8 @@ class App extends Component {
       token: null,
       // Since this is a uint we have to set a default value
       totalSupply: 0,
+      // Default is empty array
+      tokenURIs: [],
     }
   }
 
