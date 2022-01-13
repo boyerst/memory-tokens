@@ -155,6 +155,20 @@ class App extends Component {
   }
 
 
+    chooseImage = (cardId) => {
+      cardId = cardId.toString()
+      // Return all of the 
+      return window.location.origin + '/images/blank.png'
+      
+    }
+
+
+
+
+
+
+
+
   constructor(props) {
     super(props)
     this.state = {
@@ -201,7 +215,19 @@ class App extends Component {
 
                 <div className="grid mb-4" >
 
-                  {/* Code goes here... */}
+                  { this.state.cardArray.map((card, key) => {
+                    return(
+                      <img  
+                        // The key is something that React needs to know whenever we implement multiple items with the same HTML element
+                        key={key}
+                        // Have yet to implement this function
+                        src={this.chooseImage(key)}
+                        // Give each element an Id which is the key we declared above
+                        data-id={key}
+                        // Whenever a card is clicked it will 
+                      />       
+                    )
+                  })}
 
                 </div>
 
