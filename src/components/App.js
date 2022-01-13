@@ -4,6 +4,59 @@ import './App.css';
 import MemoryToken from '../abis/MemoryToken.json'
 import brain from '../brain.png'
 
+// Keeps track of the names and image locations for each card
+  // This will reference each image in the public folder for each tile
+const CARD_ARRAY = [
+  {
+    name: 'fries',
+    img: '/images/fries.png'
+  },
+  {
+    name: 'cheeseburger',
+    img: '/images/cheeseburger.png'
+  },
+  {
+    name: 'ice-cream',
+    img: '/images/ice-cream.png'
+  },
+  {
+    name: 'pizza',
+    img: '/images/pizza.png'
+  },
+  {
+    name: 'milkshake',
+    img: '/images/milkshake.png'
+  },
+  {
+    name: 'hotdog',
+    img: '/images/hotdog.png'
+  },
+  {
+    name: 'fries',
+    img: '/images/fries.png'
+  },
+  {
+    name: 'cheeseburger',
+    img: '/images/cheeseburger.png'
+  },
+  {
+    name: 'ice-cream',
+    img: '/images/ice-cream.png'
+  },
+  {
+    name: 'pizza',
+    img: '/images/pizza.png'
+  },
+  {
+    name: 'milkshake',
+    img: '/images/milkshake.png'
+  },
+  {
+    name: 'hotdog',
+    img: '/images/hotdog.png'
+  }
+]
+
 
 // This is a React.js component  
 class App extends Component {
@@ -14,6 +67,9 @@ class App extends Component {
     await this.loadWeb3()
     // Call our function that shows us we are connected to web3
     await this.loadBlockchainData()
+    // Load the cards on the page
+    // 'Set the cardArray array in state with the CARD_ARRAY above, but do so in a randomized fashion by using the sort() function and random() function'
+    this.setState({ cardArray: CARD_ARRAY.sort(() => 0.5 - Math.random())})
   }
 
 
@@ -72,7 +128,7 @@ class App extends Component {
           // We set them in state
       // REMINDER: that we are fetching all of this data from the contract artifact, which is a JSON representation of your contract that is compiled by Solidity everytime your contract is compiled
         // This specific function originally comes from ERC721.sol (the NFT contract) that we inherit through our MemoryToken.sol contract
-      let balanceOlf = await token.methods.balanceOf(accounts[0]).call()
+      let balanceOf = await token.methods.balanceOf(accounts[0]).call()
       // Loop through ALL of the tokens (From 0 -> however many total they have) that the owner has in their balance of tokens
         // i starts as 0; so long as i is less that the balance of the owners address, continue the loop; then add one more integer to i after you execute the code; restart the loop
       for (let i = 0; i < balanceOf; i++) {
@@ -109,6 +165,11 @@ class App extends Component {
       totalSupply: 0,
       // Default is empty array
       tokenURIs: [],
+      // Will list all of the cards on the page
+      cardArray: [],
+      cardsChosen: [],
+      cardsChosenId: [],
+      cardsWon: []
     }
   }
 
