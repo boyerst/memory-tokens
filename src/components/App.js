@@ -157,8 +157,14 @@ class App extends Component {
 
     chooseImage = (cardId) => {
       cardId = cardId.toString()
-      // Return all of the 
+      // If the cardId above is in the cardsChosen array...
+      if(this.state.cardsChosenId.includes(cardId)) {
+        // ...then show the matching card from our CARD_ARRAY on the page
+        return CARD_ARRAY[cardId].img
+      } else {
+      // If it's not then show our default Blank image
       return window.location.origin + '/images/blank.png'
+      }
       
     }
 
@@ -174,13 +180,18 @@ class App extends Component {
         // We pass it the specific id that we assigned as the 'data-id' value which was assigned the 'key' value
         cardsChosenId: [...this.state.cardsChosenId, cardId]
       })
-
-      // If the already chosen is equal to one, check for a match
-      // if (alreadyChosen === 1) {
-      //   setTimeout(this.checkForMatch, 100)
-      // }
+      // If the user has already chosen a card before this one (giving the alreadyChosen var a value of 1), then check for a match because we now have two cards that we can compare
+      if (alreadyChosen === 1) {
+        setTimeout(this.checkForMatch, 100)
+      }
     }
 
+
+
+
+    checkForMatch = async () => {
+      alert('Checking for match...')
+    }
 
 
 
@@ -238,6 +249,7 @@ class App extends Component {
                         // The key is something that React needs to know whenever we implement multiple items with the same HTML element
                         key={key}
                         // Have yet to implement this function
+                        // Since we are dynamically chosen our images, the code will change our src automatically
                         src={this.chooseImage(key)}
                         // Give each element an Id which is the key we declared above
                         data-id={key}
