@@ -162,7 +162,24 @@ class App extends Component {
       
     }
 
+    // Async function to which we pass in the flipped card Id
+    flipCard = async (cardId) => {
+      // Give var a value of how many cards that have already been chosen
+      let alreadyChosen = this.state.cardsChosen.length
+      // Update state with card chosen to flip
+        // We use the spread syntax in order to add on new items which keeping the current items in the arrays
+      this.setState({
+        // Update the choseCard array in state to include this card that was just flipped
+        cardsChosen: [...this.state.cardsChosen, this.state.cardArray[cardId].name],
+        // We pass it the specific id that we assigned as the 'data-id' value which was assigned the 'key' value
+        cardsChosenId: [...this.state.cardsChosenId, cardId]
+      })
 
+      // If the already chosen is equal to one, check for a match
+      // if (alreadyChosen === 1) {
+      //   setTimeout(this.checkForMatch, 100)
+      // }
+    }
 
 
 
@@ -224,7 +241,16 @@ class App extends Component {
                         src={this.chooseImage(key)}
                         // Give each element an Id which is the key we declared above
                         data-id={key}
-                        // Whenever a card is clicked it will 
+                        // Whenever a card is clicked we want to fire this function
+                        onClick={(event) => {
+                          // Define card Id by targeting data-id which was defined as key which was defined as key
+                          let cardId = event.target.getAttribute('data-id')
+                          // Using logical negation...
+                            // 'Read this cardId as a string, and if it is NOT in the cardsWon array in state, then flip it over'
+                          if(!this.state.cardsWon.includes(cardId.toString())) {
+                            this.flipCard(cardId)
+                          }
+                        }}
                       />       
                     )
                   })}
