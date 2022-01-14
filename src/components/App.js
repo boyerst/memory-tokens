@@ -176,6 +176,7 @@ class App extends Component {
         // We use the spread syntax in order to add on new items which keeping the current items in the arrays
       this.setState({
         // Update the choseCard array in state to include this card that was just flipped
+          // We target the flipped card by referencing the cardArray array with cardId and name
         cardsChosen: [...this.state.cardsChosen, this.state.cardArray[cardId].name],
         // We pass it the specific id that we assigned as the 'data-id' value which was assigned the 'key' value
         cardsChosenId: [...this.state.cardsChosenId, cardId]
@@ -190,8 +191,40 @@ class App extends Component {
 
 
     checkForMatch = async () => {
-      alert('Checking for match...')
+      // This var equals the card that is in the first index of the cardsChosenId array
+        // The cards are stored in that array under their cardIds <- which derive from data-id <- which derive from key <- which derive from the 'id' that React gives each value as they are map()ed in the render() function
+      const optionOneId = this.state.cardsChosenId[0]
+      // This var equals the card that is in the second index of the cardsChosenId array
+      const optionTwoId = this.state.cardsChosenId[1]
+      // Logic for when a match is found
+      // Why do we have two conditional checks for match here (in 'if' and 'else if')❓❓❓
+      // FIRST condition: checks if the ids in the cardsChosenId array are matching❓
+      if(optionOneId == optionTwoId) {
+        alert('You have clicked the same image!')
+        // SECOND condition: checks if the Id AND name are matching❓
+      } else if (this.state.cardsChosen[0] === this.state.cardsChosen[1]) {
+        alert('You found a match!')
+        // Set state with matching cards
+        this.setState({
+          // Add the chosen and matching card Ids to cardsWon array
+          // They will be cleared out of cardsChosen below
+          cardsWon: [...this.state.cardsWon, optionOneId, optionTwoId],
+        })
+        // // Add the 
+        // tokenURIs: [...this.state.tokenURIs, CARD_ARRAY[optionOneId].img]
+      } else {
+        alert('Sorry, please try again')
+      }
+      // Reset the arrays for the next round of guessing
+      this.setState({
+        cardsChosen: [],
+        cardsChosenId: []
+      })
+      if(this.state.cardsWon.lenth === CARD_ARRAY.length) {
+        alert('Congratulations! You found them all!')
+      }
     }
+    
 
 
 
@@ -207,10 +240,21 @@ class App extends Component {
       totalSupply: 0,
       // Default is empty array
       tokenURIs: [],
-      // Will list all of the cards on the page
+      // Stores all of the cards on the page
+        // Stores via cardId AND name
       cardArray: [],
+      // Stores the cards that have been flipped
+        // Stores via cardId and name
+        // When the array is equal to one, this signifies that the user has already chosen one, and thus the current (second) card has another card that can be checked for a match
+        // When does this array reset to zero❓❓❓
       cardsChosen: [],
+      // Stores the chosen cards
+        // Stores via Id
+        // The Id is set is set when the cards are render()ed and derives from the data-id which derives from the key that react gives it
+        // We use this array in checkForMatch() to check for matches when the cardsChosen array already has 1 card in it at the time of flipping a second card
       cardsChosenId: [],
+      // Stores the matching cards
+        // Stores viaId
       cardsWon: []
     }
   }
