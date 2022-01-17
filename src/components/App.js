@@ -318,7 +318,7 @@ class App extends Component {
           <div className="row">
             <main role="main" className="col-lg-12 d-flex text-center">
               <div className="content mr-auto ml-auto">
-                <h1 className="d-4">The Blockchain Game</h1>
+                <h4 className="d-4">Start matching tokens!</h4>
 
                 <div className="grid mb-4" >
 
@@ -351,7 +351,10 @@ class App extends Component {
 
                 <div>
 
-                  {/* Code goes here... */}
+                  {/*Sub-title for collected tokens display*/}
+                  <h5>Tokens Collected:<span id="result">&nbsp;{this.state.tokenURIs.length}</span></h5>
+
+                  
 
                   <div className="grid mb-4" >
                     {/* Loops through the tokenURIs array to display the collected tokens earned and minted upon matches*/}
