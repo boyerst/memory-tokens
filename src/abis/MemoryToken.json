@@ -1688,12 +1688,12 @@
         }
       },
       "links": {},
-      "address": "0xe6233d7E8363c1A5bBE374F6ac6a7a23938a70D4",
-      "transactionHash": "0xfe118417521a241bd9e2843345d6c3293eb63f00f0ad72fb77d80ddb6bb5f415"
+      "address": "0x93c040f00b200A06f0677Ca0C463DEDcE629815B",
+      "transactionHash": "0xf13363c52b254e3e1ac87959376dd514a783990982b8a15a0f460e660f48b304"
     }
   },
   "schemaVersion": "3.0.1",
-  "updatedAt": "2022-01-10T17:11:34.440Z",
+  "updatedAt": "2022-01-17T19:18:34.747Z",
   "devdoc": {
     "methods": {
       "approve(address,uint256)": {

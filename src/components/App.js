@@ -211,14 +211,38 @@ class App extends Component {
         // SECOND condition: checks if the Id AND name are matching❓
       } else if (this.state.cardsChosen[0] === this.state.cardsChosen[1]) {
         alert('You found a match!')
-        // Set state with matching cards
-        this.setState({
-          // Add the chosen and matching card Ids to cardsWon array
-          // They will be cleared out of cardsChosen below
-          cardsWon: [...this.state.cardsWon, optionOneId, optionTwoId],
+        // REFACTOR: to implement the blockchain and collect tokens after matching
+        // Call the mint() function on the token contract
+          // Same as we did in the test but with web3.js
+          // The mint() function in ERC721.sol takes 2 arguments - an account and a URI
+            // REMINDER: In the ERC721.sol function it took address to, uint256 tokenId - but we are oveerriding this function to tailor it to our app
+        this.state.token.methods.mint(
+          // 1st ARG = account
+            // Passed as the 'account' or the account we connected to the blockchain with
+          this.state.account, 
+          // 2nd ARG = URI
+            // The URI is parsed by building a URL using...
+              // 1. window.location.origin = current location = localhost:3000
+              // 2. The img from the card from the cards' object in CARD_ARRAY, converted to string
+              // Ex. 'localhost:3000/images/hotdog.png'
+          window.location.origin + CARD_ARRAY[optionOneId].img.toString()
+        )
+        // REMINDER: with web3.js when we are triggering a tx on the blockchain we must include .send for the function to fully execute the method - in this case, minting
+        // 'Send from the account we are connected to the blockchain with'
+        .send({ from: this.state.account })
+        // Wait for tx hash to come back from the blockchain
+          // When this is received...execute these tasks...
+        .on('transactionHash', (hash) => {
+          // Set state with matching cards
+          this.setState({
+            // Add the chosen and matching card Ids to cardsWon array
+            // They will be cleared out of cardsChosen below          
+            cardsWon: [...this.state.cardsWon, optionOneId, optionTwoId],
+            // Add the URI of the token we collected to the tokenURIs array
+              // This will allow us to reload the page, play mutliple times and store our collected token forever on the blockchain
+            tokenURIs: [...this.state.tokenURIs, CARD_ARRAY[optionOneId].img]
+          })
         })
-        // // Add the 
-        // tokenURIs: [...this.state.tokenURIs, CARD_ARRAY[optionOneId].img]
       } else {
         alert('Sorry, please try again')
       }
@@ -242,6 +266,7 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      // This is the account we are connected to the blockchain with
       account: '0x0',
       // Refactored from 'token: {}' with empty object because better?
       token: null,
@@ -292,7 +317,7 @@ class App extends Component {
           <div className="row">
             <main role="main" className="col-lg-12 d-flex text-center">
               <div className="content mr-auto ml-auto">
-                <h1 className="d-4">Edit this file in App.js!</h1>
+                <h1 className="d-4">The Blockchain Game</h1>
 
                 <div className="grid mb-4" >
 
