@@ -67,7 +67,7 @@ class App extends Component {
     await this.loadWeb3()
     // Call our function that shows us we are connected to web3
     await this.loadBlockchainData()
-    // Load the cards on the page
+    // Load the cards on the page by putting them in the cardArray in state
     // 'Set the cardArray array in state with the CARD_ARRAY above, but do so in a randomized fashion by using the sort() function and random() function'
     this.setState({ cardArray: CARD_ARRAY.sort(() => 0.5 - Math.random())})
   }
@@ -155,17 +155,24 @@ class App extends Component {
   }
 
 
+
+    // Function that is executed when we map out all of the cards in the cardArray onto the page
+      // In the mapping below - the cards' key is passed to this.chooseImage
+        // But choose image takes cardId, so does the function just use the key as a cardId❓
     chooseImage = (cardId) => {
+      // Convert the cardId (which is the key passed to chooseImage in the mapping❓) to string
       cardId = cardId.toString()
-      // If the cardId above is in the cardsChosen array...
-      if(this.state.cardsChosenId.includes(cardId)) {
-        // ...then show the matching card from our CARD_ARRAY on the page
+      // If the card is in the cardsWon array (has already been matched, you have collected the token), then show the blank image
+      if(this.state.cardsWon.includes(cardId)) {
+        return window.location.origin + '/images/white.png'
+      }
+      // If this card has been chosen/flipped, then show the card 
+      else if(this.state.cardsChosenId.includes(cardId)) {
         return CARD_ARRAY[cardId].img
       } else {
-      // If it's not then show our default Blank image
-      return window.location.origin + '/images/blank.png'
+        // If the above isn't true and it hasn't been matched, then display the blank image
+        return window.location.origin + '/images/blank.png'
       }
-      
     }
 
     // Async function to which we pass in the flipped card Id
@@ -220,6 +227,8 @@ class App extends Component {
         cardsChosen: [],
         cardsChosenId: []
       })
+      // Alerts user if they have found all matches
+        // If the amount of matching cards in the cardsWon array is the same as the principle array
       if(this.state.cardsWon.lenth === CARD_ARRAY.length) {
         alert('Congratulations! You found them all!')
       }
@@ -250,7 +259,7 @@ class App extends Component {
       cardsChosen: [],
       // Stores the chosen cards
         // Stores via Id
-        // The Id is set is set when the cards are render()ed and derives from the data-id which derives from the key that react gives it
+        // The Id is set when the cards are render()ed and derives from the data-id which derives from the key that react gives it
         // We use this array in checkForMatch() to check for matches when the cardsChosen array already has 1 card in it at the time of flipping a second card
       cardsChosenId: [],
       // Stores the matching cards
@@ -292,8 +301,9 @@ class App extends Component {
                       <img  
                         // The key is something that React needs to know whenever we implement multiple items with the same HTML element
                         key={key}
-                        // Have yet to implement this function
                         // Since we are dynamically chosen our images, the code will change our src automatically
+                        // These have already been randomized into the cardArray in state with logic in componentWillMount
+                        // Whenever we are dynamically choosing our images and find our matches, a blank white square will be shown
                         src={this.chooseImage(key)}
                         // Give each element an Id which is the key we declared above
                         data-id={key}

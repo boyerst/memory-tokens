@@ -109,7 +109,7 @@ contract('Memory Token', (accounts) => {
       // OWNER CAN SEE ALL OF THE TOKENS
         // Check how my tokens the owner account has by calling balanceOf()
       let balanceOf = await token.balanceOf(accounts[0])
-      // Using JavaScript, loop through ALL of the tokens to fetch each individual token that the owner has
+      // Using JavaScript, loop through ALL of the users tokens to fetch each individual token that the owner has
       let tokenIds = []
       // Start at 0 and loop all the way to balanceOf
         // Then increment them by 1
