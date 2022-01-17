@@ -273,6 +273,7 @@ class App extends Component {
       // Since this is a uint we have to set a default value
       totalSupply: 0,
       // Default is empty array
+        // Stores the URIs of the tokens that are minted when matches are made
       tokenURIs: [],
       // Stores all of the cards on the page
         // Stores via cardId AND name
@@ -353,8 +354,16 @@ class App extends Component {
                   {/* Code goes here... */}
 
                   <div className="grid mb-4" >
-
-                    {/* Code goes here... */}
+                    {/* Loops through the tokenURIs array to display the collected tokens earned and minted upon matches*/}
+                    { this.state.tokenURIs.map((tokenURI, key) => {
+                      return(
+                        // Since this is React we use keys when listing elements
+                        <img
+                          key={key}
+                          src={tokenURI}
+                        />
+                      )
+                    })}
 
                   </div>
 
